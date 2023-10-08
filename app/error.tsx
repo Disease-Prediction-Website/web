@@ -1,4 +1,4 @@
 "use client"
 export default function Error() {
-    return <div>Error</div>
+    return <div className=" w-screen h-screen">Error</div>
 }
