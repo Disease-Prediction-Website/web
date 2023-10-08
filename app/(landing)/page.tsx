@@ -4,14 +4,14 @@ import Link from 'next/link';
 export default function Landing() {
 	return (
 		<div>
-			landing{' '}
+			landing page{' '}
 			<div>
 				{' '}
 				<Link href={'/sign-in'}>
-					<Button>Login</Button>
+					<Button variant={"premium"}>Login</Button>
 				</Link>
 				<Link href={'/sign-up'}>
-					<Button>Register</Button>
+					<Button variant={"premium"}>Register</Button>
 				</Link>
 			</div>
 		</div>
