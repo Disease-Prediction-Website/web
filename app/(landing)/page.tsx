@@ -1,19 +1,13 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { Navbar } from './components/Navbar';
+import Image from 'next/image';
 
 export default function Landing() {
 	return (
 		<div>
-			landing page{' '}
-			<div>
-				{' '}
-				<Link href={'/sign-in'}>
-					<Button variant={"premium"}>Login</Button>
-				</Link>
-				<Link href={'/sign-up'}>
-					<Button variant={"premium"}>Register</Button>
-				</Link>
-			</div>
+			<Navbar />
+			<Image className=' w-full object-contain' src={"/5.jpg"} alt='livestock' fill />
 		</div>
 	);
 }

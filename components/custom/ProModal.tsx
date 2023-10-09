@@ -66,10 +66,8 @@ export const ProModal = () => {
 				<DialogHeader>
 					<DialogTitle className='flex justify-center items-center flex-col gap-y-4 pb-2'>
 						<div className=' flex items-center gap-x-2 font-bold py-1'>
-							Upgrade to Rashtech AI
-							<Badge className='uppercase text-sm py-1'>
-								pro
-							</Badge>
+							Predict Animal Diseases
+							
 						</div>
 					</DialogTitle>
 					<DialogDescription className='text-center pt-2 space-y-2 text-zinc-900 font-medium'>
@@ -107,7 +105,7 @@ export const ProModal = () => {
 						variant='premium'
 						className=' w-full'
 					>
-						Upgrade <Zap className=' w-4 h-4 ml-2 fill-white' />
+						Predict Disease <Zap className=' w-4 h-4 ml-2 fill-white' />
 					</Button>
 				</DialogFooter>
 			</DialogContent>

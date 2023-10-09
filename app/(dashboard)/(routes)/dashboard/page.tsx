@@ -1,6 +1,7 @@
 'use client';
 
 import { Card } from '@/components/ui/card';
+import { useProModal } from '@/hooks/useProModal';
 import { cn } from '@/lib/utils';
 import {
 	ArrowRight,
@@ -16,13 +17,6 @@ import {
 import { useRouter } from 'next/navigation';
 
 const tools = [
-	{
-		label: 'Predict Disease',
-		icon: PlusSquare,
-		href: '/predict',
-		color: 'text-violet-500',
-		bgColor: "bg-violet-500/10"
-	},
 	{
 		label: 'Prediction Results',
 		icon: PieChart,
@@ -41,8 +35,9 @@ const tools = [
 
 export default function Home() {
 	const router = useRouter();
+	const predictModal = useProModal();
 	return (
-		<div className='p-6'>
+		<div className='p-3'>
 			<div className=' mb-8 space-y-4'>
 				<h2 className=' text-2xl md:text-4xl font-bold text-center'>
 					Explore the power of Disease AI
@@ -52,6 +47,27 @@ export default function Home() {
 				</p>
 			</div>
 			<div className='px-4 md:px-20 lg:px-32 space-y-4'>
+				<Card
+					onClick={predictModal.open}
+					className='p-4 border-black/5 flex items-center
+						 justify-between hover:shadow-md
+						  transition cursor-pointer'
+				>
+					<div className='flex items-center gap-x-4'>
+						<div
+							className={cn(
+								'p-2 w-fit rounded-md',
+								'bg-violet-500/10'
+							)}
+						>
+							<PlusSquare
+								className={cn('w-8 h-8', 'text-violet-500')}
+							></PlusSquare>
+						</div>
+						<div className='font-semibold'>Predict Disease</div>
+					</div>
+					<ArrowRight className='w-5 h-5' />
+				</Card>
 				{tools.map((tool) => (
 					<Card
 						onClick={() => router.push(tool.href)}
