@@ -5,15 +5,16 @@ import { Navbar } from './components/Navbar';
 import { Activity, Book, History } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Footer } from './components/Footer';
 
 export default function Landing() {
 	const { isSignedIn } = useAuth();
 	return (
-		<div className=' flex flex-col items-start'>
+		<div className=' w-full flex flex-col items-start'>
 			<Navbar />
-			<div className='relative min-h-[350px]'>
+			<div className='w-full relative min-h-[350px] max-h-[calc(100vh-100px)]'>
 				<img
-					className=' w-full h-full object-cover min-h-[350px]'
+					className=' w-full min-w-full h-full object-cover min-h-[350px] max-h-[calc(100vh-100px)]'
 					src={'/5.jpg'}
 					alt='livestock'
 				/>
@@ -22,18 +23,27 @@ export default function Landing() {
 						<p className=' text-2xl md:text-5xl lg:text-8xl font-bold text-[#eaf4f7]'>
 							Want to find out about Animal Diseases?
 						</p>
-						<p className=' lg:text-xl md:text-base text-sm text-[#eaf4f7]'>
+						<p className=' lg:text-xl md:text-base  text-[#eaf4f7]'>
 							Lorem ipsum dolor sit amet consectetur, adipisicing
 							elit. Illum repellendus natus architecto laudantium
 							.
 						</p>
 						<Link href={isSignedIn ? '/dashboard' : '/sign-in'}>
-							<Button variant={'secondary'} size={'lg'} className=' text-white bg-red-500 rounded-md'>Get started</Button>
+							<Button
+								variant={'secondary'}
+								size={'lg'}
+								className=' text-white bg-red-500 rounded-md'
+							>
+								Get started
+							</Button>
 						</Link>
 					</div>
 				</div>
 			</div>
-			<SectionTwo />
+			{/* <SectionTwo /> */}
+			<SectionThree />
+			<SectionFour />
+			<Footer />
 		</div>
 	);
 }
@@ -60,9 +70,9 @@ const SectionTwo = () => {
 		},
 	];
 	return (
-		<div className=' my-10  space-y-6 md:space-y-0 items-center justify-center flex-col md:flex-row p-4 md:py-14 lg:py-16 md:p-8 w-full flex md:items-start  md:space-x-8 lg:space-x-16 md:justify-center'>
+		<div className=' my-10  space-y-6 md:space-y-0 items-center justify-center flex-col md:flex-row p-4 md:py-14 lg:py-16 md:p-8 w-full flex   md:space-x-8 lg:space-x-16  text-center'>
 			{services.map((service) => (
-				<div className=' items-center text-center md:items-start md:text-left flex flex-col max-w-[220px] space-y-4 '>
+				<div className=' items-center text-center lg:items-start lg:justify-start lg:text-left flex flex-col max-w-[220px] space-y-4 '>
 					<service.icon
 						className=' text-[#396379]'
 						size={45}
@@ -70,23 +80,81 @@ const SectionTwo = () => {
 					<p className=' text-[#396379] font-bold text-lg'>
 						{service.title}
 					</p>
-					<p className=' text-[#a0b3c5] text-sm'>{service.details}</p>
+					<p className=' text-[#a0b3c5] text-base'>
+						{service.details}
+					</p>
 				</div>
 			))}
 		</div>
 	);
 };
 
-const sectionThree = () => {
-	return <div>
-		<p>This is how it works</p>
-		<div>
-			<div className=' w-4 h-4 rounded-full bg-[#ffb454] text-white'>1</div>
-			<p className=' text-lg capitalize text-[#396379]'>do something</p>
-			<p className=' text-sm  text-[#a0b3c5]'>roturitr rtkruyhtr rtu8rthur rtirturytrtijtrtrit ruiyojtyojjyt tyoiytpykjyt tyoityutypiyiuiy</p>
+const SectionThree = () => {
+	const items = [
+		{
+			heading: 'Predict Disease',
+			no: 1,
+			details:
+				'Easily predict animal disease with our AI powered platform by stating the symptoms.',
+		},
+		{
+			heading: 'View Prediction History',
+			no: 2,
+			details:
+				'Easily view prediction history after predicting diseases, based on the symptoms provided.',
+		},
+		{
+			heading: 'Explore Animal Diseases',
+			no: 3,
+			details:
+				'Read on 100+ animal diseases available on our website; their symptoms, prevention and treatment.',
+		},
+	];
+	return (
+		<div className=' py-9 md:py-12 p-6 w-full flex flex-col space-y-6 items-center justify-center text-center'>
+			<p className=' mb-7 lg:mb-14 text-xl md:text-2xl lg:text-4xl font-semibold capitalize text-[#396379] '>
+				This is how it works
+			</p>
+			<div className=' flex flex-col md:flex-row items-start md:space-x-4 md:space-y-0 space-y-5 '>
+				{items.map((item) => (
+					<div className='flex flex-col max-w-[260px] items-center justify-center space-y-4 '>
+						<div className=' w-14 flex items-center justify-center font-bold h-14 mb-6  rounded-full bg-[#ffb454] text-white'>
+							{item.no}
+						</div>
+						<p className=' text-lg capitalize font-semibold text-[#396379]'>
+							{item.heading}
+						</p>
+						<p className='  text-[#a0b3c5]'>{item.details}</p>
+					</div>
+				))}
+			</div>
 		</div>
-	</div>
-}
+	);
+};
+
+const SectionFour = () => {
+	const { isSignedIn } = useAuth();
+	return (
+		<div className=' space-y-6 md:p-10 lg:p-12 p-6 w-full lg:min-h-[400px] my-5 flex flex-col text-center items-center justify-center min-h-[300px] bg-[#eaf4f7]'>
+			<p className=' md:text-2xl lg:text-3xl text-xl text-[#396379] font-semibold '>
+				Get Correct Prediction
+			</p>
+			<p className=' max-w-[550px] md:text-lg lg:text-xl text-base  text-[#a0b3c5]'>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit.
+				Nostrum, fugiat hic ratione, optio repellat, repellendus.
+			</p>
+			<Link href={isSignedIn ? '/dashboard' : '/sign-in'}>
+				<Button
+					variant={'secondary'}
+					size={'lg'}
+					className='  text-white bg-red-500 rounded-md'
+				>
+					Get started Now
+				</Button>
+			</Link>
+		</div>
+	);
+};
 
 // bg for the 4th section #eaf4f7
 // text cloor #396379
