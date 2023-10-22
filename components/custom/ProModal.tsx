@@ -42,8 +42,37 @@ export const ProModal = ({ symptoms }: { symptoms: Symptoms[] }) => {
 		);
 	}
 	if (data) {
-		console.log(data)
-		return <div>hhhh</div>
+		return (
+			<Dialog
+				open={proModal.isOpen}
+				onOpenChange={() => {
+					setData(null);
+					proModal.close();
+				}}
+			>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle className='flex justify-center items-center flex-col gap-y-4 pb-2'>
+							<div className=' flex items-center gap-x-2 font-bold py-1'>
+								Prediction Result
+							</div>
+						</DialogTitle>
+						<DialogDescription className='text-center py-5  space-y-2 text-zinc-900 font-medium'>
+							{data.matchingDiseases.length > 0 ? (
+								<p>
+									The disease predicted are{' '}
+									{data.matchingDiseases.map((disease) => (
+										<span>{disease.diseaseName}</span>
+									))}
+								</p>
+							) : (
+								<p>no matching disease</p>
+							)}
+						</DialogDescription>
+					</DialogHeader>
+				</DialogContent>
+			</Dialog>
+		);
 	}
 
 	return (
