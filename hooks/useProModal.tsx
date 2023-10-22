@@ -1,3 +1,4 @@
+import prismadb from '@/lib/prismadb';
 import { create } from 'zustand';
 
 interface usePromodalStore {
@@ -11,3 +12,5 @@ export const useProModal = create<usePromodalStore>((set) => ({
 	close: () => set({ isOpen: false }),
 	open: () => set({ isOpen: true }),
 }));
+
+

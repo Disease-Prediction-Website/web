@@ -1,21 +1,23 @@
-"use client"
+'use client';
 
-import { useEffect, useState } from "react";
-import { ProModal } from "./custom/ProModal";
+import { useEffect, useState } from 'react';
+import { ProModal } from './custom/ProModal';
+import { Symptoms } from '@prisma/client';
 
-export const ModalProvider = () => {
-    const [mounted, setMounted] = useState(false);
+export const ModalProvider = ({ symptoms }: { symptoms: Symptoms[] }) => {
+	const [mounted, setMounted] = useState(false);
 
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+	if (!mounted) {
+		return null;
+	}
 
-    if (!mounted) {
-        return null;
-    }
-
-    return <>
-        <ProModal />
-    </>
-}
+	return (
+		<>
+			<ProModal symptoms={symptoms} />
+		</>
+	);
+};

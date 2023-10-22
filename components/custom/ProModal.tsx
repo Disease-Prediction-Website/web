@@ -1,62 +1,51 @@
 'use client';
 
 import { useProModal } from '@/hooks/useProModal';
+
 import {
-	ArrowRight,
-	Check,
-	Code,
-	ImageIcon,
-	MessageSquare,
-	Music,
-	VideoIcon,
-	Zap,
-} from 'lucide-react';
-import { Card } from '../ui/card';
-import { cn } from '@/lib/utils';
-import { Button } from '../ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog';
-import { Badge } from '../ui/badge';
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+} from '../ui/dialog';
+import { useState } from 'react';
+import { Loader } from './Loader';
+import { SelectForm } from './ModalSelect';
+import { Disease, Symptoms } from '@prisma/client';
+import { PredictionResult } from '@/lib/apiCalls';
 
-const tools = [
-	{
-		label: 'Conversation',
-		icon: MessageSquare,
-		color: 'text-violet-500',
-		bgColor: 'bg-violet-500/10',
-		href: '/conversation',
-	},
-	{
-		label: 'Music Generation',
-		icon: Music,
-		color: 'text-emerald-500',
-		bgColor: 'bg-emerald-500/10',
-		href: '/music',
-	},
-	{
-		label: 'Image Generation',
-		icon: ImageIcon,
-		color: 'text-pink-700',
-		bgColor: 'bg-pink-700/10',
-		href: '/image',
-	},
-	{
-		label: 'Video Generation',
-		icon: VideoIcon,
-		color: 'text-orange-700',
-		bgColor: 'bg-orange-700/10',
-		href: '/video',
-	},
-	{
-		label: 'Code Generation',
-		icon: Code,
-		color: 'text-green-700',
-		bgColor: 'bg-green-700/10',
-		href: '/code',
-	},
-];
-
-export const ProModal = () => {
+export const ProModal = ({ symptoms }: { symptoms: Symptoms[] }) => {
 	const proModal = useProModal();
+	const [loading, setLoading] = useState(false);
+	const [data, setData] = useState<null | PredictionResult>(null);
+
+	if (loading) {
+		return (
+			<Dialog
+				open={proModal.isOpen}
+				onOpenChange={proModal.close}
+			>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle className='flex justify-center items-center flex-col gap-y-4 pb-2'>
+							<div className=' flex items-center gap-x-2 font-bold py-1'>
+								Result is Loading
+							</div>
+						</DialogTitle>
+						<DialogDescription className='text-center py-5  space-y-2 text-zinc-900 font-medium'>
+							<Loader />
+						</DialogDescription>
+					</DialogHeader>
+				</DialogContent>
+			</Dialog>
+		);
+	}
+	if (data) {
+		console.log(data)
+		return <div>hhhh</div>
+	}
+
 	return (
 		<Dialog
 			open={proModal.isOpen}
@@ -67,47 +56,16 @@ export const ProModal = () => {
 					<DialogTitle className='flex justify-center items-center flex-col gap-y-4 pb-2'>
 						<div className=' flex items-center gap-x-2 font-bold py-1'>
 							Predict Animal Diseases
-							
 						</div>
 					</DialogTitle>
 					<DialogDescription className='text-center pt-2 space-y-2 text-zinc-900 font-medium'>
-						{tools.map((tool) => (
-							<Card
-								key={tool.label}
-								className='p-3 border-black/5 flex items-center justify-between'
-							>
-								<div className='flex items-center gap-x-4'>
-									<div
-										className={cn(
-											' p-2 w-fit rounded-md',
-											tool.bgColor
-										)}
-									>
-										<tool.icon
-											className={cn(
-												'w-6 h-6 ',
-												tool.color
-											)}
-										/>
-									</div>
-									<div className='text-sm font-semibold'>
-										{tool.label}
-									</div>
-								</div>
-								<Check className=' text-primary w-5 h-5' />
-							</Card>
-						))}
+						<SelectForm
+							symptoms={symptoms}
+							setData={setData}
+							setLoading={setLoading}
+						/>
 					</DialogDescription>
 				</DialogHeader>
-				<DialogFooter>
-					<Button
-						size='lg'
-						variant='premium'
-						className=' w-full'
-					>
-						Predict Disease <Zap className=' w-4 h-4 ml-2 fill-white' />
-					</Button>
-				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	);
