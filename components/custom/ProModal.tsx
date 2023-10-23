@@ -74,7 +74,10 @@ export const ProModal = ({ symptoms }: { symptoms: Symptoms[] }) => {
 							<div className=' flex flex-wrap gap-2 '>
 								{data.matchingDiseases.length > 0 &&
 									data.matchingDiseases.map((disease) => (
-										<Link href={`/disease/${disease.id}`}>
+										<Link
+											onClick={proModal.close}
+											href={`/disease/${disease.id}`}
+										>
 											<Button
 												variant={'secondary'}
 												className=' shadow-md text-xs px-3 py-2 border-2 border-pink-600'
@@ -97,6 +100,9 @@ export const ProModal = ({ symptoms }: { symptoms: Symptoms[] }) => {
 													.slice(0, 5)
 													.map((disease) => (
 														<Link
+															onClick={
+																proModal.close
+															}
 															href={`/disease/${disease.id}`}
 														>
 															<Button
@@ -129,6 +135,9 @@ export const ProModal = ({ symptoms }: { symptoms: Symptoms[] }) => {
 													.slice(0, 5)
 													.map((disease) => (
 														<Link
+															onClick={
+																proModal.close
+															}
 															href={`/disease/${disease.id}`}
 														>
 															<Button

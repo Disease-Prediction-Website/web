@@ -14,16 +14,7 @@ export const getSymptoms = async () => {
 	return symptoms;
 };
 
-// export const makePrediction: ({
-// 	symptom1,
-// 	symptom2,
-// }: {
-// 	symptom1: string;
-// 	symptom2: string;
-// 	}) => Promise<PredictionResult> = async ({ symptom1, symptom2 }) => {
-// 	const result = await
-	
-// 	return 
-// };
-
-// // export const getDiseases
+export const getDisease = async (id: string) => {
+	const disease = await prismadb.disease.findUnique({ where: { id } });
+	return disease;
+};
