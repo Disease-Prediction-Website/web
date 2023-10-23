@@ -18,3 +18,14 @@ export const getDisease = async (id: string) => {
 	const disease = await prismadb.disease.findUnique({ where: { id } });
 	return disease;
 };
+
+export const getDiseases = async (page: number) => {
+	let skip = 0 + (page - 1) * 20;
+
+	const diseases = await prismadb.disease.findMany({
+		orderBy: { diseaseName: 'asc' },
+		take: 20,
+		skip,
+	});
+	return diseases;
+};
